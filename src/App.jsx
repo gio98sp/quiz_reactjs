@@ -12,7 +12,7 @@ export const App = () => {
 
   useEffect(() => {
     dispatch({type: 'REORDER_QUESTIONS'})
-  }, [])
+  }, [quizState.gameStage === 'Start'])
 
   return (
     <div className='App'>
