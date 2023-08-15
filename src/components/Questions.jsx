@@ -14,9 +14,9 @@ export const Questions = () => {
       type: 'CHECK_ANSWER',
       payload: {
         answer: currentQuestion.answer,
-        option
-      }
-    })
+        option,
+      },
+    });
   };
 
   return (
@@ -35,6 +35,16 @@ export const Questions = () => {
           />
         ))}
       </div>
+      {!quizState.answerSelected && (
+        <>
+          {currentQuestion.tip && quizState.help === false && (
+            <button onClick={() => dispatch({ type: 'SHOW_TIP' })}>Dica</button>
+          )}
+          {quizState.help === 'tip' && (
+            <p>{currentQuestion.tip}</p>
+          )}
+        </>
+      )}
       {quizState.answerSelected && (
         <button onClick={() => dispatch({ type: 'CHANGE_QUESTION' })}>Continuar</button>
       )}

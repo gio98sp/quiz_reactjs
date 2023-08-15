@@ -11,7 +11,8 @@ export const Option = ({ option, selectOption, answer }) => {
     <div
       className={`option ${
         quizState.answerSelected === option && option === answer ? 'correct' : ''
-      } ${quizState.answerSelected === option && option !== answer ? 'wrong' : ''}`}
+      } ${quizState.answerSelected === option && option !== answer ? 'wrong' : ''} 
+      ${quizState.answerSelected && option === answer ? 'correct' : ''}`}
       onClick={() => selectOption()}
     >
       <p>{option}</p>
