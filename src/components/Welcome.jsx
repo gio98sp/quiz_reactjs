@@ -8,8 +8,6 @@ import Quiz from '../img/quiz.svg';
 export const Welcome = () => {
   const [quizState, dispatch] = useContext(QuizContext);
 
-  console.log(quizState);
-
   return (
     <div id="welcome">
       <div>Seja bem-vindo</div>
