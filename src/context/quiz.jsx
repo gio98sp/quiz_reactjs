@@ -12,7 +12,8 @@ const initialStage = {
   currentQuestion: 0,
   score: 0,
   answerSelected: false,
-  help: false
+  help: false,
+  removeOption: false,
 };
 
 const quizReducer = (state, action) => {
@@ -33,8 +34,8 @@ const quizReducer = (state, action) => {
       return {
         ...state,
         questions: quizQuestions,
-        gameStage: STAGES[2]
-      }
+        gameStage: STAGES[2],
+      };
 
     case 'REORDER_QUESTIONS':
       const reorderQuestions = state.questions.sort(() => {
@@ -48,8 +49,20 @@ const quizReducer = (state, action) => {
     case 'SHOW_TIP':
       return {
         ...state,
-        help: 'tip'
-      }
+        help: 'tip',
+      };
+
+    case 'REMOVE_OPTION':
+      const questionWhithoutOption = state.questions[state.currentQuestion];
+      const options = questionWhithoutOption.options;
+      const answerCorrect = questionWhithoutOption.answer;
+
+      const wrongOption = options.find((option) => option !== answerCorrect);
+
+      return {
+        ...state,
+        removeOption: wrongOption,
+      };
 
     case 'CHANGE_QUESTION':
       const nextQuestion = state.currentQuestion + 1;
@@ -60,7 +73,7 @@ const quizReducer = (state, action) => {
         currentQuestion: nextQuestion,
         gameStage: endGame ? STAGES[3] : state.gameStage,
         answerSelected: false,
-        help: false
+        help: false,
       };
 
     case 'CHECK_ANSWER':

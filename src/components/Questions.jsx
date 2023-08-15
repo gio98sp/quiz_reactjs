@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 
 import { QuizContext } from '../context/quiz';
+import { Option } from './Option';
 
 import './Questions.css';
-import { Option } from './Option';
 
 export const Questions = () => {
   const [quizState, dispatch] = useContext(QuizContext);
@@ -32,6 +32,7 @@ export const Questions = () => {
             key={option}
             answer={currentQuestion.answer}
             selectOption={() => onSelectOption(option)}
+            hide={option === quizState.removeOption ? 'hide' : null}
           />
         ))}
       </div>
@@ -40,8 +41,9 @@ export const Questions = () => {
           {currentQuestion.tip && quizState.help === false && (
             <button onClick={() => dispatch({ type: 'SHOW_TIP' })}>Dica</button>
           )}
-          {quizState.help === 'tip' && (
-            <p>{currentQuestion.tip}</p>
+          {quizState.help === 'tip' && <p>{currentQuestion.tip}</p>}
+          {quizState.removeOption === false && (
+            <button onClick={() => dispatch({ type: 'REMOVE_OPTION' })}>Excluir uma</button>
           )}
         </>
       )}
